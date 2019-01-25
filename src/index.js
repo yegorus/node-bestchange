@@ -4,6 +4,8 @@ const Exchanges = require('./collections/Exchanges')
 const fs = require('fs')
 const iconv = require('iconv-lite')
 
+const zip = 'https://www.bestchange.ru/bm/info.zip'
+
 class Index {
 
     constructor (cachePath) {
@@ -81,7 +83,7 @@ class Index {
     async downloadZip () {
         const request = require('request-promise')
 
-        const r = await request.get('https://www.bestchange.ru/bm/info.zip', {
+        const r = await request.get(zip, {
             encoding: null
         })
 
