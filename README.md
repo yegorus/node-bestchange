@@ -2,6 +2,13 @@
 
 Api for bestchange.ru on nodejs
 
+## Install
+
+```
+$ npm i node-bestchange --save
+```
+
+
 ## Usage
 
 ```js
