@@ -27,4 +27,4 @@ async (() => {
 
 ## Terms of use
 
-To use the API, it is necessary to specify a reference to https://bestchange.ru where courses will be used
+To use the API, you need to add a link to bestchange.ru where currency rates will be used
