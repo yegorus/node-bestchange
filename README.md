@@ -27,4 +27,4 @@ async (() => {
 
 ## Terms of use
 
-To use the API, you need to add a link to bestchange.ru where currency rates will be used
+To use the API, you need to add a link to https://bestchange.ru where currency rates will be used
