@@ -17,9 +17,9 @@ async (() => {
     const api = await (new Api('/cache')).load();
     
     // btc (93) to Tinkoff (105)
-    let rates = await api.getRates().filter(93, 105)
+    const rates = await api.getRates().filter(93, 105)
     
-    let currencies = await api.getCurrencies() // collection currencies
+    const currencies = await api.getCurrencies() // collection currencies
     console.log(currencies.getData()) // list currencies
 })()
 
