@@ -24,3 +24,7 @@ async (() => {
 })()
 
 ```
+
+## Terms of use
+
+To use the API, it is necessary to specify a reference to https://bestchange.ru where courses will be used
