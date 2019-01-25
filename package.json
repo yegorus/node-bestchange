@@ -1,0 +1,29 @@
+{
+  "name": "bestchange",
+  "version": "1.0.0",
+  "description": "Bestchange.ru api",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "./node_modules/mocha/bin/mocha"
+  },
+  "keywords": [
+    "bestchange.ru",
+    "api"
+  ],
+  "author": "yegorus",
+  "license": "MIT",
+  "dependencies": {
+    "decompress": "^4.2.0",
+    "fs": "0.0.1-security",
+    "iconv-lite": "^0.4.24",
+    "request": "^2.88.0",
+    "request-promise": "^4.2.2"
+  },
+  "devDependencies": {
+    "assert": "^1.4.1",
+    "chai": "^4.2.0",
+    "expect.js": "^0.3.1",
+    "mocha": "^5.2.0",
+    "simple-mock": "^0.8.0"
+  }
+}
