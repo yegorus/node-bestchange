@@ -1,6 +1,6 @@
 {
   "name": "node-bestchange",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "homepage": "https://github.com/yegorus/node-bestchange",
   "description": "Bestchange.ru api",
   "main": "src/index.js",
@@ -22,7 +22,6 @@
   },
   "devDependencies": {
     "assert": "^1.4.1",
-    "chai": "^4.2.0",
     "expect.js": "^0.3.1",
     "mocha": "^5.2.0",
     "simple-mock": "^0.8.0"
