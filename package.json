@@ -1,6 +1,7 @@
 {
-  "name": "bestchange",
+  "name": "node-bestchange",
   "version": "1.0.0",
+  "homepage": "https://github.com/yegorus/node-bestchange",
   "description": "Bestchange.ru api",
   "main": "src/index.js",
   "scripts": {
