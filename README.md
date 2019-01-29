@@ -1,6 +1,6 @@
 # NODEJS bestchange.ru API
 
-Api for bestchange.ru on nodejs
+Api for bestchange.ru on nodejs.
 
 ## Install
 
@@ -27,4 +27,9 @@ async (() => {
 
 ## Terms of use
 
-To use the API, you need to add a link to https://bestchange.ru where currency rates will be used
+To use the API, you need to add a link to https://bestchange.ru where currency rates will be used.
+
+
+## Contribution
+
+Pull requests are always welcome.
