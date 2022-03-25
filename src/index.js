@@ -4,7 +4,7 @@ const Exchanges = require('./collections/Exchanges')
 const fs = require('fs')
 const iconv = require('iconv-lite')
 
-const zip = 'https://www.bestchange.ru/bm/info.zip'
+const zip = 'http://api.bestchange.ru/info.zip'
 
 class Index {
 
