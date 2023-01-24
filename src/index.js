@@ -1,39 +1,56 @@
 const Currencies = require('./collections/Currencies')
 const Rates = require('./collections/Rates')
 const Exchanges = require('./collections/Exchanges')
-const fs = require('fs')
-const iconv = require('iconv-lite')
 
-const zip = 'http://api.bestchange.ru/info.zip'
+const iconv = require('iconv-lite')
+const unzipper = require('unzipper')
+const {Readable} = require('stream')
 
 class Index {
 
-    constructor (cachePath) {
-        this.cachePath = cachePath
+    constructor(apiUrl = 'http://api.bestchange.ru/info.zip') {
+        this.apiUrl = apiUrl
     }
 
     /**
      * @returns {Promise<Index>}
      */
-    async load () {
-        await this.fetchFiles()
-        const values = await Promise.all([
-            this.loadDataFile(this.cachePath + '/info/bm_cy.dat'),
-            this.loadDataFile(this.cachePath + '/info/bm_exch.dat'),
-            this.loadDataFile(this.cachePath + '/info/bm_rates.dat')
-        ])
+    async load() {
+        const zip = await this.downloadZip()
 
-        this.currencies = new Currencies(values[0])
-        this.exchanges = new Exchanges(values[1])
-        this.rates = new Rates(values[2])
+        await zip
+            .pipe(unzipper.Parse())
+            .on('entry', async entry => {
+                switch (entry.path) {
+                    case 'bm_cy.dat':
+                        this.currencies = new Currencies(this.unpack(await entry.buffer()))
+                        break
+                    case 'bm_exch.dat':
+                        this.exchanges = new Exchanges(this.unpack(await entry.buffer()))
+                        break
+                    case 'bm_rates.dat':
+                        this.rates = new Rates(this.unpack(await entry.buffer()))
+                        break
+                }
+                entry.autodrain()
+            }).promise()
 
         return this
     }
 
     /**
+     * @returns {Promise<Readable>}
+     */
+    async downloadZip() {
+        const res = await fetch(this.apiUrl)
+
+        return Readable.fromWeb(res.body)
+    }
+
+    /**
      * @returns {Rates}
      */
-    getRates () {
+    getRates() {
         return this.rates
     }
 
@@ -52,44 +69,12 @@ class Index {
     }
 
     /**
-     * @param dataFile
-     * @returns {Promise<any>}
+     * @param data
+     * @returns {string}
      */
-    loadDataFile(dataFile) {
-        return new Promise((resolve, reject) => {
-            fs.readFile(dataFile, null, (err, data) => {
-                if (err) {
-                    throw err;
-                }
-
-                resolve(iconv.encode(iconv.decode(data, 'windows-1251'), 'utf8').toString())
-            })
-        })
+    unpack(data) {
+        return iconv.encode(iconv.decode(data, 'windows-1251'), 'utf8').toString()
     }
-
-    /**
-     * @returns {Promise<void>}
-     */
-    async fetchFiles () {
-        const decompress = require('decompress');
-
-        await this.downloadZip()
-        await decompress(this.cachePath + '/info.zip', this.cachePath + '/info')
-    }
-
-    /**
-     * @returns {Promise<void>}
-     */
-    async downloadZip () {
-        const request = require('request-promise')
-
-        const r = await request.get(zip, {
-            encoding: null
-        })
-
-        fs.writeFileSync(this.cachePath + '/info.zip', r)
-    }
-
 }
 
 module.exports = Index

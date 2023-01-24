@@ -1,8 +1,12 @@
 const Api = require('../')
 const expect = require('expect.js')
 const simple = require('simple-mock')
-const api = new Api(__dirname + '/data')
-simple.mock(api, 'downloadZip').callFn(() => {})
+const fs = require('fs')
+
+const api = new Api()
+simple.mock(api, 'downloadZip').callFn(() => {
+    return fs.createReadStream(__dirname + '/data/info.zip')
+})
 
 it('Test types and empty', async () => {
     await api.load()
