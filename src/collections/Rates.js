@@ -27,7 +27,7 @@ class Rates extends Collection {
             }
         })
 
-        this.data.sort((a,b) => (a.rateReceive > b.rateReceive) ? -1 : ((b.rateReceive > a.rateReceive) ? 1 : 0));
+        this.data.sort((a,b) => (a.rateReceive > b.rateReceive) ? -1 : ((b.rateReceive > a.rateReceive) ? 1 : 0))
     }
 
     /**
