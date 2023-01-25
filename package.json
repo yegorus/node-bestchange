@@ -1,6 +1,6 @@
 {
   "name": "node-bestchange",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "homepage": "https://github.com/yegorus/node-bestchange",
   "description": "Bestchange.ru api",
   "main": "src/index.js",
@@ -14,6 +14,8 @@
   "author": "yegorus",
   "license": "MIT",
   "dependencies": {
+    "csv-generate": "^4.2.1",
+    "csv-parse": "^5.3.3",
     "fs": "0.0.1-security",
     "iconv-lite": "^0.4.24",
     "unzipper": "^0.10.11"

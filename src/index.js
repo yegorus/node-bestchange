@@ -2,7 +2,6 @@ const Currencies = require('./collections/Currencies')
 const Rates = require('./collections/Rates')
 const Exchanges = require('./collections/Exchanges')
 
-const iconv = require('iconv-lite')
 const unzipper = require('unzipper')
 const {Readable} = require('stream')
 
@@ -23,13 +22,13 @@ class Index {
             .on('entry', async entry => {
                 switch (entry.path) {
                     case 'bm_cy.dat':
-                        this.currencies = new Currencies(this.unpack(await entry.buffer()))
+                        this.currencies = new Currencies(await entry.buffer())
                         break
                     case 'bm_exch.dat':
-                        this.exchanges = new Exchanges(this.unpack(await entry.buffer()))
+                        this.exchanges = new Exchanges(await entry.buffer())
                         break
                     case 'bm_rates.dat':
-                        this.rates = new Rates(this.unpack(await entry.buffer()))
+                        this.rates = new Rates(await entry.buffer())
                         break
                 }
                 entry.autodrain()
@@ -66,14 +65,6 @@ class Index {
      */
     getCurrencies () {
         return this.currencies
-    }
-
-    /**
-     * @param data
-     * @returns {string}
-     */
-    unpack(data) {
-        return iconv.encode(iconv.decode(data, 'windows-1251'), 'utf8').toString()
     }
 }
 
