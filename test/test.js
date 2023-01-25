@@ -5,7 +5,7 @@ const fs = require('fs')
 
 const api = new Api()
 simple.mock(api, 'downloadZip').callFn(() => {
-    return fs.createReadStream(__dirname + '/data/info2.zip')
+    return fs.createReadStream(__dirname + '/data/info.zip')
 })
 
 it('Test types and empty', async () => {
