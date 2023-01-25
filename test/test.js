@@ -5,12 +5,13 @@ const fs = require('fs')
 
 const api = new Api()
 simple.mock(api, 'downloadZip').callFn(() => {
-    return fs.createReadStream(__dirname + '/data/info.zip')
+    return fs.createReadStream(__dirname + '/data/info2.zip')
 })
 
 it('Test types and empty', async () => {
+    const used = process.memoryUsage().heapUsed / 1024 / 1024;
     await api.load()
-
+    console.log(process.memoryUsage().heapUsed/ 1024 / 1024 - used);
     expect(api.getCurrencies()).to.be.an(require('../src/collections/Currencies'))
     expect(api.getCurrencies().getData()).to.be.an('array')
     expect(api.getCurrencies().getData()).to.not.empty()

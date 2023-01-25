@@ -1,4 +1,5 @@
 const Collection = require('./Collection')
+const {parse} = require('csv-parse/sync')
 
 class Rates extends Collection {
 
@@ -6,28 +7,35 @@ class Rates extends Collection {
      * @param data
      */
     constructor (data) {
-        super(data)
-        this.rows.forEach((row) => {
-            const from = parseInt(row[0])
-            const to = parseInt(row[1])
-            const exchangeId = parseInt(row[2])
-            const rateGive = parseFloat(row[3])
-            const rateReceive = parseFloat(row[4])
+        super();
 
-            if (rateGive && rateReceive) {
-                this.data.push({
-                    fromCurrencyId: from,
-                    toCurrencyId: to,
-                    exchangeId: exchangeId,
-                    rateGive: rateGive,
-                    rateReceive: rateReceive,
-                    reserve: row[5],
-                    reviews: row[6]
-                })
+        this.data = parse(data, {
+            delimiter: ';',
+            onRecord: row => {
+                const rateGive = parseFloat(row[3])
+                const rateReceive = parseFloat(row[4])
+
+                if (rateGive && rateReceive) {
+                    const from = parseInt(row[0])
+                    const to = parseInt(row[1])
+                    const exchangeId = parseInt(row[2])
+
+                    return {
+                        fromCurrencyId: from,
+                        toCurrencyId: to,
+                        exchangeId: exchangeId,
+                        rateGive: rateGive,
+                        rateReceive: rateReceive,
+                        reserve: row[5],
+                        reviews: row[6]
+                    }
+                }
+
+                return null
             }
-        })
+        });
 
-        this.data.sort((a,b) => (a.rateReceive > b.rateReceive) ? -1 : ((b.rateReceive > a.rateReceive) ? 1 : 0))
+        this.data.sort((a, b) => (a[4] > b[4]) ? -1 : ((b[4] > a[4]) ? 1 : 0))
     }
 
     /**

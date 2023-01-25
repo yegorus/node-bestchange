@@ -1,14 +1,10 @@
+const iconv = require("iconv-lite");
+
 /**
  * Abstract class Collection
  */
 class Collection {
-
-    /**
-     * @param data
-     */
-    constructor (data) {
-
-        this.rows = data.split("\n").map((item) => item.split(';'))
+    constructor () {
         this.data = []
     }
 
@@ -25,6 +21,14 @@ class Collection {
      */
     getData () {
         return this.data
+    }
+
+    /**
+     * @param buf
+     * @returns {Buffer}
+     */
+    convertUtf8(buf) {
+        return iconv.encode(iconv.decode(buf, 'windows-1251'), 'utf8')
     }
 }
 

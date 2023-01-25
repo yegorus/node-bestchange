@@ -14,6 +14,8 @@
   "author": "yegorus",
   "license": "MIT",
   "dependencies": {
+    "csv-generate": "^4.2.1",
+    "csv-parse": "^5.3.3",
     "fs": "0.0.1-security",
     "iconv-lite": "^0.4.24",
     "unzipper": "^0.10.11"

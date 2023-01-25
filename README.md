@@ -14,7 +14,7 @@ $ npm i node-bestchange --save
 ```js
 async (() => {
     const Api = require('node-bestchange')
-    const api = await (new Api('/cache')).load();
+    const api = await (new Api()).load();
     
     // btc (93) to Tinkoff (105)
     const rates = await api.getRates().filter(93, 105)
