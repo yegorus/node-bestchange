@@ -9,7 +9,6 @@ on:
 
 jobs:
   up-version:
-    needs: build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -17,5 +16,4 @@ jobs:
         with:
           node-version: 16
           registry-url: https://registry.npmjs.org/
-      - run: npm ci
       - run: npm version --no-git-tag-version ${CI_COMMIT_TAG}
