@@ -14,6 +14,8 @@ class Rates extends Collection {
             onRecord: row => {
                 const rateGive = parseFloat(row[3])
                 const rateReceive = parseFloat(row[4])
+                const minSum = parseFloat(row[8])
+                const maxSum = parseFloat(row[9])
 
                 if (rateGive && rateReceive) {
                     const from = parseInt(row[0])
@@ -26,6 +28,8 @@ class Rates extends Collection {
                         exchangeId: exchangeId,
                         rateGive: rateGive,
                         rateReceive: rateReceive,
+                        minSum,
+                        maxSum,
                         reserve: row[5],
                         reviews: row[6]
                     }
