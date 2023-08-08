@@ -12,7 +12,7 @@ class Top extends Collection {
             this.data.push({
                 fromCurrencyId: +row[0],
                 toCurrencyId: +row[1],
-				unknownField: row[2]
+                unknownField: row[2]
             })
         }
     }
