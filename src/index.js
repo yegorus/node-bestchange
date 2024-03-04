@@ -1,6 +1,7 @@
 const Currencies = require('./collections/Currencies')
 const Rates = require('./collections/Rates')
 const Exchanges = require('./collections/Exchanges')
+const Top = require('./collections/Top')
 
 const unzipper = require('unzipper')
 const {Readable} = require('stream')
@@ -29,6 +30,9 @@ class Index {
                         break
                     case 'bm_rates.dat':
                         this.rates = new Rates(await entry.buffer())
+                        break
+                    case 'bm_top.dat':
+                        this.top = new Top(await entry.buffer())
                         break
                 }
                 entry.autodrain()
@@ -65,6 +69,13 @@ class Index {
      */
     getCurrencies () {
         return this.currencies
+    }
+
+    /**
+     * @returns {Top}
+     */
+    getTop () {
+        return this.top
     }
 }
 

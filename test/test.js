@@ -23,6 +23,16 @@ it('Test types and empty', async () => {
     expect(api.getExchanges().getData()).to.be.an('array')
     expect(api.getExchanges().getData()).to.not.empty()
 
+    expect(api.getTop()).to.be.an(require('../src/collections/Top'))
+    expect(api.getTop().getData()).to.be.an('array')
+    expect(api.getTop().getData()).to.not.empty()
+})
+
+
+it('Test top', async () => {
+    await api.load()
+    expect(api.getTop().get(1).fromCurrencyId).to.eql(42)
+    expect(api.getTop().get(1).toCurrencyId).to.eql(93)
 })
 
 it('Rates test', async () => {
